@@ -6,7 +6,7 @@ export const StarsReview: React.FC<{ rating: number, size: number }> = (props) =
 
     if (rating != undefined && rating > 0 && rating <= 5) {
         for (let i = 0; i <= 4; i++) {
-            if (rating -1 >= 0) {
+            if (rating - 1 >= 0) {
                 fullStar++;
                 rating--;
             } else if (rating === .5) {
