@@ -2,10 +2,12 @@ package com.demo.library.controller;
 
 import com.demo.library.entity.Book;
 import com.demo.library.service.BookService;
+import com.demo.library.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,20 +24,22 @@ public class BookController {
     }
 
     @GetMapping("/secure/currentloans/count")
-    public int currentLoansCount() {
-        String userEmail = "testuser@gmail.com";
+    public int currentLoansCount(@RequestHeader(value = "Authorization") String token) {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
         return bookService.currentLoansCount(userEmail);
     }
 
     @GetMapping("/secure/ischeckedout/byuser")
-    public Boolean checkoutBookByUser(@RequestParam Long bookId) {
-        String userEmail = "testuser@gmail.com";
+    public Boolean checkoutBookByUser(@RequestHeader(value = "Authorization") String token,
+                                      @RequestParam Long bookId) {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
         return bookService.checkoutBookByUser(userEmail, bookId);
     }
 
     @PutMapping("/secure/checkout")
-    public Book checkoutBook(@RequestParam Long bookId) throws Exception {
-        String userEmail = "testuser@gmail.com";
+    public Book checkoutBook(@RequestHeader(value = "Authorization") String token,
+                             @RequestParam Long bookId) throws Exception {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
         return bookService.checkoutBook(userEmail, bookId);
     }
 }
