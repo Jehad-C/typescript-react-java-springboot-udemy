@@ -15,11 +15,13 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable);
+        http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(configurer ->
                         configurer
-                                //.requestMatchers("/api/books/secure/**")
-                                //.authenticated()
+                                .requestMatchers("/api/books/secure/**")
+                                .authenticated()
+                                .requestMatchers("/api/reviews/secure/**")
+                                .authenticated()
                                 .anyRequest()
                                 .permitAll())
                 .oauth2ResourceServer(oaut2 ->
