@@ -18,8 +18,10 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers("/api/books/secure/**")
-                                .authenticated())
+                                //.requestMatchers("/api/books/secure/**")
+                                //.authenticated()
+                                .anyRequest()
+                                .permitAll())
                 .oauth2ResourceServer(oaut2 ->
                         oaut2.jwt(Customizer.withDefaults()))
                 .cors(Customizer.withDefaults())
