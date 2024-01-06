@@ -1,8 +1,9 @@
 package com.demo.library.config;
 
 import com.demo.library.entity.Book;
-
+import com.demo.library.entity.Message;
 import com.demo.library.entity.Review;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -19,9 +20,11 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         config.exposeIdsFor(Book.class);
         config.exposeIdsFor(Review.class);
+        config.exposeIdsFor(Message.class);
 
         disableHttpMethods(Book.class, config, theUnsupportedActions);
         disableHttpMethods(Review.class, config, theUnsupportedActions);
+        disableHttpMethods(Message.class, config, theUnsupportedActions);
 
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(theAllowedOrigin);
