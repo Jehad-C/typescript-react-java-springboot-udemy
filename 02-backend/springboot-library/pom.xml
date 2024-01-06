@@ -52,6 +52,11 @@
 			<artifactId>okta-spring-boot-starter</artifactId>
 			<version>3.0.6</version>
 		</dependency>
+		<dependency>
+			<groupId>com.jtransc</groupId>
+			<artifactId>jtransc-rt</artifactId>
+			<version>0.5.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
